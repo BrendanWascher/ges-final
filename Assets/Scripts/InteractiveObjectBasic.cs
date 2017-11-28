@@ -7,16 +7,7 @@ public class InteractiveObjectBasic : MonoBehaviour, IActivatable
 
     public void DoActivate()
     {
-        throw new System.NotImplementedException();
+        Debug.Log(transform.name + " was activated.");
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
