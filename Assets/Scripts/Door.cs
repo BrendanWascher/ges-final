@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Door : MonoBehaviour, IActivatable {
+
+    private Animator thisDoor;
+
     public void DoActivate()
     {
-        throw new System.NotImplementedException();
+        StartThisDoor();
+        thisDoor.SetBool("Open", true);
     }
-
-    // Use this for initialization
-    void Start () {
-        DoActivate();
-	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void StartThisDoor ()
+    {
+        thisDoor = GetComponent<Animator>();
+        Debug.Log("Called startdoor");
 	}
 }
