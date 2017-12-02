@@ -28,6 +28,26 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
+        // Commented sections like this reflect changes from base firstpersoncontroller script
+        // changes: added a public gameobject "playerflashlight" to the character in variable declarations (flashlight)
+        // changes: added a private bool "isflashlighton" to the character in variable declarations (flashlight)
+        // changes: added a private light "flashlight" to the character in variable declarations (flashlight)
+        // changes: got components of playerflashlight and declared the light aspect of it to flashlight
+        // changes: declared isflashlighton true in start function (flashlight)
+        // changes: added a call to a new function in update (flashlight)
+        // changes: added a new function called from update (flashlight)
+
+        // adding public light variable
+        public GameObject playerFlashLight;
+
+        // adding private bool to check if flashlight is on
+        private bool isFlashlightOn;
+
+        // adding private light variable
+        private Light flashLight;
+
+        // end changes
+
         private Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
@@ -55,6 +75,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+
+            // declaring light component of playerflashlight to flashlight
+            flashLight = playerFlashLight.GetComponent<Light>();
+
+            // declaring flashlighton on to begin with
+            isFlashlightOn = true;
+            // end changes
         }
 
 
@@ -81,8 +108,30 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
+
+            // added function call
+            CheckFlashLight();
+            // end changes
         }
 
+        // adding new function for characters flashlight
+        private void CheckFlashLight()
+        {
+            if(Input.GetButtonDown("ToggleFlash"))  // checks if the input for toggle flash is pressed
+            {
+                if(isFlashlightOn)  // if flashlight is already on
+                {
+                    flashLight.enabled = false; // disable flashlight
+                    isFlashlightOn = false; // tell the system the flashlight is off
+                }
+                else // if the flashlight is not on
+                {
+                    flashLight.enabled = true;  // enable flashlight
+                    isFlashlightOn = true;  // tell the system the flashlight is on
+                }
+            }
+        }
+        // end of new function for flashlight
 
         private void PlayLandingSound()
         {
