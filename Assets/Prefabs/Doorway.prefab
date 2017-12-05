@@ -2942,6 +2942,7 @@ MonoBehaviour:
   leftDoor: {fileID: 1151989350565804}
   rightDoor: {fileID: 1917894729341412}
   thisLight: {fileID: 1760590725315370}
+  nameText: Open Door Button
 --- !u!114 &114494670004125470
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -12,6 +12,17 @@ public class DoorActivator : MonoBehaviour, IActivatable {
     Animator rightAnimator;
     Light activateLight;
 
+    [SerializeField]
+    private string nameText;
+
+    public string NameText
+    {
+        get
+        {
+            return nameText;
+        }
+    }
+
     public void DoActivate()
     {
         leftAnimator.SetBool("Open", true);

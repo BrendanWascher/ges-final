@@ -6,6 +6,17 @@ public class Door : MonoBehaviour, IActivatable {
 
     private Animator thisDoor;
 
+    [SerializeField]
+    private string nameText;
+
+    public string NameText
+    {
+        get
+        {
+            return nameText;
+        }
+    }
+
     public void DoActivate()
     {
         StartThisDoor();
