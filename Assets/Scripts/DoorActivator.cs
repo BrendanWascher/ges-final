@@ -15,27 +15,60 @@ public class DoorActivator : MonoBehaviour, IActivatable {
     [SerializeField]
     private string nameText;
 
+    [Tooltip("If you set a key, the door will be locked.")]
+    [SerializeField]
+    InventoryObject key;
+
+    private bool isLocked, isOpen;
+    private List<InventoryObject> playerInventory;
+
     public string NameText
     {
         get
         {
-            return nameText;
+            string toReturn = nameText;
+
+            if (isOpen)
+                toReturn = ""; // So it doesn't look like you can open the door anymore.
+            else if (isLocked && !HasKey)
+                toReturn += " (LOCKED)";
+            else if (isLocked && HasKey)
+                toReturn += string.Format(" (use {0})", key.NameText);
+
+            return toReturn;
+        }
+    }
+
+    private bool HasKey
+    {
+        get
+        {
+            return playerInventory.Contains(key);
         }
     }
 
     public void DoActivate()
     {
-        leftAnimator.SetBool("Open", true);
-        rightAnimator.SetBool("Open", true);
-        Debug.Log("Doors Opened");
-        activateLight.color = Color.green;
+        if (!isOpen)
+        {
+            if (!isLocked || HasKey)
+            {
+                leftAnimator.SetBool("Open", true);
+                rightAnimator.SetBool("Open", true);
+                //Debug.Log("Doors Opened");
+                activateLight.color = Color.green;
+                isOpen = true;
+            }
+        }
     }
 
-    private void Awake()
+    private void Start()
     {
         leftAnimator = leftDoor.GetComponent<Animator>();
         rightAnimator = rightDoor.GetComponent<Animator>();
         activateLight = thisLight.GetComponent<Light>();
+        playerInventory = FindObjectOfType<InventoryMenu>().PlayerInventory;
+        isLocked = key != null;
     }
 
     
