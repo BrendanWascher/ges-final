@@ -11,7 +11,7 @@ public class Door : MonoBehaviour, IActivatable
     [SerializeField]
     InventoryObject key;
 
-    private Animator animator;
+    //private Animator animator;
     private bool isLocked, isOpen;
     private List<InventoryObject> playerInventory;
 
@@ -24,7 +24,7 @@ public class Door : MonoBehaviour, IActivatable
             if (isOpen)
                 toReturn = ""; // So it doesn't look like you can open the door anymore.
             else if (isLocked && !HasKey)
-                toReturn += " (LOCKED)";
+                toReturn += " (MISSING EXPLOSIVES)";
             else if (isLocked && HasKey)
                 toReturn += string.Format(" (use {0})", key.NameText);
 
@@ -46,7 +46,7 @@ public class Door : MonoBehaviour, IActivatable
         {
             if (!isLocked || HasKey)
             {
-                animator.SetBool("isDoorOpen", true); 
+                //animator.SetBool("isTowerDown", true); 
                 isOpen = true;
             }
         }
@@ -55,7 +55,7 @@ public class Door : MonoBehaviour, IActivatable
     // Use this for initialization
     void Start () 
 	{
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         playerInventory = FindObjectOfType<InventoryMenu>().PlayerInventory;
         isLocked = key != null;
 	}

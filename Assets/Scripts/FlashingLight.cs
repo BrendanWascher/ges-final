@@ -10,8 +10,12 @@ public class FlashingLight : MonoBehaviour {
     [SerializeField]
     float intensityChange;
 
+    [SerializeField]
+    float delay;
+
     private float timer;
     private bool isReveresed;
+    private bool isInitialDelay;
 
     public Light RedLight;
 
@@ -19,6 +23,8 @@ public class FlashingLight : MonoBehaviour {
 	void Start ()
     {
         timer = flashingDuration;
+        timer += delay;
+        CheckForDelay();
         isReveresed = false;
 	}
 	
@@ -28,11 +34,30 @@ public class FlashingLight : MonoBehaviour {
         CheckFlash();
 	}
 
+    void CheckForDelay()
+    {
+        if (timer > flashingDuration)
+            isInitialDelay = true;
+        else
+            isInitialDelay = false;
+    }
+
     void CheckFlash()
     {
         if(timer >= 0)
         {
-            if(isReveresed == false)
+            if(isInitialDelay)
+            {
+                if(timer >= flashingDuration)
+                {
+                    timer -= Time.deltaTime;
+                }
+                else
+                {
+                    isInitialDelay = false;
+                }
+            }
+            else if(isReveresed == false)
             {
                 RedLight.intensity -= intensityChange;
                 timer -= Time.deltaTime;
@@ -49,10 +74,11 @@ public class FlashingLight : MonoBehaviour {
             timer = 0;
         }
 
-        if(timer > flashingDuration)
+        if(timer > flashingDuration && isInitialDelay == false)
         {
             isReveresed = false;
             timer = flashingDuration;
         }
+       
     }
 }
