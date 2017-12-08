@@ -10,6 +10,9 @@ public class InventoryObject : MonoBehaviour, IActivatable
     [SerializeField]
     private string descriptionText;
 
+    [SerializeField]
+    private AudioSource pickupSound;
+
     private MeshRenderer meshRenderer;
     private InventoryMenu inventoryMenu;
     private Collider collider;
@@ -29,10 +32,12 @@ public class InventoryObject : MonoBehaviour, IActivatable
         inventoryMenu = FindObjectOfType<InventoryMenu>();
         meshRenderer = GetComponent<MeshRenderer>();
         collider = GetComponent<Collider>();
+        pickupSound = GetComponent<AudioSource>();
     }
     public void DoActivate()
     {
         inventoryMenu.PlayerInventory.Add(this);
+        pickupSound.Play();
 
         // Doing this rather than destroy because our Inventory menu still needs
         // to know about this object even though it has been collected and 

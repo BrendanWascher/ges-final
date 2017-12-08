@@ -81,6 +81,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             // declaring flashlighton on to begin with
             isFlashlightOn = true;
+
             // end changes
         }
 

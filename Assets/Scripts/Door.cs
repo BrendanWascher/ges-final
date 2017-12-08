@@ -15,6 +15,8 @@ public class Door : MonoBehaviour, IActivatable
     private bool isLocked, isOpen;
     private List<InventoryObject> playerInventory;
 
+    public static bool isDetonated;
+
     public string NameText
     {
         get
@@ -48,6 +50,10 @@ public class Door : MonoBehaviour, IActivatable
             {
                 //animator.SetBool("isTowerDown", true); 
                 isOpen = true;
+                if(key.NameText == "Explosives")
+                {
+                    isDetonated = true;
+                }
             }
         }
     }
@@ -58,5 +64,6 @@ public class Door : MonoBehaviour, IActivatable
         //animator = GetComponent<Animator>();
         playerInventory = FindObjectOfType<InventoryMenu>().PlayerInventory;
         isLocked = key != null;
+        isDetonated = false;
 	}
 }
