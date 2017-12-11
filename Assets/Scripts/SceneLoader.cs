@@ -10,8 +10,8 @@ public class SceneLoader : MonoBehaviour {
 
     [SerializeField]
     string CreditsButtonScene;
-	
-	public void OnStartButtonPress ()
+
+    public void OnStartButtonPress ()
     {
         SceneManager.LoadScene(StartButtonScene);
 	}

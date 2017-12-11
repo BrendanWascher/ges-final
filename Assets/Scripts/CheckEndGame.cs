@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class CheckEndGame : MonoBehaviour {
 
     [SerializeField]
     string creditsScene;
 
-	void FixedUpdate ()
+    [SerializeField]
+    private FirstPersonController firstPersonController;
+
+    void FixedUpdate ()
     {
         CheckDetonation();	
 	}
@@ -17,6 +21,8 @@ public class CheckEndGame : MonoBehaviour {
     {
         if(Door.isDetonated == true)
         {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             SceneManager.LoadScene(creditsScene);
         }
     }
